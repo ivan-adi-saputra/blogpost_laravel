@@ -15,27 +15,31 @@
                   </div>
                 </div>
 
-                @if ($item)
+                @if ($items->count())
                 <div class="card mb-3 mt-5">
                     <img src="img/blog-post-1.jpeg" class="card-img-top" height="400" alt="...">
                     <div class="card-body">
                         <div class="post-details">
                             <div class="post-meta d-flex justify-content-between">
-                              <div class="date meta-last">20 May | 2016</div>
-                              <div class="category"><a href="#">{{ $item[0]->category->name }}</a></div>
+                              <div class="date meta-last">{{ $items[0]->created_at->format('j F | Y') }}</div>
+                              <div class="category"><a href="/posts?category={{ $items[0]->category->slug }}">{{ $items[0]->category->name }}</a></div>
                             </div>
                             <a href="post.html">
-                              <h3 class="h4">{{ $item[0]->title }}</h3>
+                              <h3 class="h4">{{ $items[0]->title }}</h3>
                             </a>
-                            <p class="text-muted">{{ $item[0]->excerpt }}</p>
-                            <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                            <p class="text-muted">{{ $items[0]->excerpt }}</p>
+                            <footer class="post-footer d-flex align-items-center">
+                              <a href="/posts?user={{ $items[0]->user->username }}" class="author d-flex align-items-center flex-wrap">
                                 <div class="avatar">
                                     <img src="img/avatar-3.jpg" width="40" class="img-fluid rounded-circle">
                                 </div>
-                                <div class="title card-text" style="margin-left: 10px"><span>{{ $item[0]->user->name }}</span></div></a>
+                                <div class="title card-text" style="margin-left: 10px">
+                                  <span>{{ $items[0]->user->name }}</span>
+                                </div>
+                              </a>
                               <div class="date card-text" style="margin-left: 10px">
                                   <i class="icon-clock"></i>
-                                      {{ $item[0]->created_at->diffForHumans() }}
+                                      {{ $items[0]->created_at->diffForHumans() }}
                               </div>
                             </footer>
                           </div>
@@ -44,17 +48,18 @@
 
            
             <!-- post -->
-            @foreach ($item->skip(1) as $item)
+            @foreach ($items->skip(1) as $item)
             <div class="post col-xl-6">
               <div class="post-thumbnail"><a href="post.html"><img src="img/blog-post-1.jpeg" alt="..." class="img-fluid"></a></div>
               <div class="post-details">
                 <div class="post-meta d-flex justify-content-between">
-                  <div class="date meta-last">{{ $item->created_at }}</div>
-                  <div class="category"><a href="#">{{ $item->category->name }}</a></div>
-                </div><a href="post.html">
-                  <h3 class="h4">{{ $item->title }}</h3></a>
+                  <div class="date meta-last">{{ $item->created_at->format('j F | Y') }}</div>
+                  <div class="category"><a href="/posts?category={{ $item->category->slug }}">{{ $item->category->name }}</a></div>
+                </div>
+                  <h3 class="h4">{{ $item->title }}</h3>
                 <p class="text-muted">{{ $item->excerpt }}</p>
-                <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                <footer class="post-footer d-flex align-items-center">
+                  <a href="/posts?user={{ $item->user->username }}" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="img/avatar-3.jpg" alt="..." class="img-fluid"></div>
                     <div class="title"><span>{{ $item->user->name }}</span></div></a>
                   <div class="date"><i class="icon-clock"></i>{{ $item->created_at->diffForHumans() }}</div>
@@ -66,6 +71,11 @@
             @else 
             <p class="text-center">Post Not Found</p>
           @endif
+
+          <div class="d-flex justify-content-start">
+            {{ $items->links() }}
+          </div>
+            
             <!-- post             -->
             {{-- <div class="post col-xl-6">
               <div class="post-thumbnail"><a href="post.html"><img src="img/blog-post-2.jpg" alt="..." class="img-fluid"></a></div>
@@ -136,9 +146,15 @@
           <header>
             <h3 class="h6">Search the blog</h3>
           </header>
-          <form action="#" class="search-form">
+          <form action="/posts" class="search-form">
+            @if (request('category'))
+              <input type="hidden" name="category" value="{{ request('category') }}">
+            @endif
+            @if (request('user'))
+                <input type="hidden" name="user" value="{{ request('user') }}">
+            @endif
             <div class="form-group">
-              <input type="search" placeholder="What are you looking for?">
+              <input type="search" placeholder="What are you looking for?" name="search" value="{{ request('search') }}">
               <button type="submit" class="submit"><i class="icon-search"></i></button>
             </div>
           </form>
@@ -179,14 +195,33 @@
               </div></a></div>
         </div>
         @endif
+       
         <!-- Widget [Categories Widget]-->
         <div class="widget categories">
           <header>
             <h3 class="h6">Categories</h3>
           </header>
+          <div class="item d-flex justify-content-between"><a href="/posts">All Post</a>
+          </div>
           @foreach ($category as $category)
-            <div class="item d-flex justify-content-between"><a href="#">{{ $category->name }}</a>
+            <div class="item d-flex justify-content-between"><a href="/posts?category={{ $category->slug }}">{{ $category->name }}</a>
               <span>{{ $category->count() }}</span>
+            </div>
+          @endforeach
+          {{-- <div class="item d-flex justify-content-between"><a href="#">Local</a><span>25</span></div>
+          <div class="item d-flex justify-content-between"><a href="#">Sales</a><span>8</span></div>
+          <div class="item d-flex justify-content-between"><a href="#">Tips</a><span>17</span></div>
+          <div class="item d-flex justify-content-between"><a href="#">Local</a><span>25</span></div> --}}
+        </div>
+
+        {{-- Users --}}
+        <div class="widget categories">
+          <header>
+            <h3 class="h6">Author</h3>
+          </header>
+          @foreach ($user as $user)
+            <div class="item d-flex justify-content-between"><a href="/posts?user={{ $user->username }}">{{ $user->name }}</a>
+              <span>{{ $user->count() }}</span>
             </div>
           @endforeach
           {{-- <div class="item d-flex justify-content-between"><a href="#">Local</a><span>25</span></div>
