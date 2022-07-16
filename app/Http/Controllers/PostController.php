@@ -12,12 +12,29 @@ class PostController extends Controller
 {
     public function index()
     {
-        $item = Post::with(['category', 'user'])->latest()->filter(request(['search', 'category', 'user']))->paginate(5)->withQueryString();
+        $title = '';
+        if(request('category')){
+            $item = Category::firstWhere('slug', request('category'));
+            $title = ' Post in ' . $item->name;
+        }
+        if(request('user')){
+            $item = User::firstWhere('username', request('user'));
+            $title = ' Author By ' . $item->name;
+        }
+        $item = Post::latest()->filter(request(['search', 'category', 'user']))->paginate(5)->withQueryString();
         return view('pages.posts', [
+            'title' => $title ? $title : 'All Post',
             'items' => $item,
             'category' => Category::all(), 
             'post' => Post::latest()->get(), 
             'user' => User::all()
+        ]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('pages.post', [
+            'post' => $post
         ]);
     }
 }

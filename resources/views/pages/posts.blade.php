@@ -10,7 +10,7 @@
               <div class=" mb-3 mt-5">
                   <div class="post-details">
                       <div class="post-meta d-flex justify-content-center">
-                        <p class="fs-4 text-bold">All Posts</p>
+                        <p class="fs-4 text-bold">{{ $title }}</p>
                       </div>
                   </div>
                 </div>
@@ -24,7 +24,7 @@
                               <div class="date meta-last">{{ $items[0]->created_at->format('j F | Y') }}</div>
                               <div class="category"><a href="/posts?category={{ $items[0]->category->slug }}">{{ $items[0]->category->name }}</a></div>
                             </div>
-                            <a href="post.html">
+                            <a href="{{ Route('post', $items[0]->slug) }}">
                               <h3 class="h4">{{ $items[0]->title }}</h3>
                             </a>
                             <p class="text-muted">{{ $items[0]->excerpt }}</p>
@@ -50,7 +50,7 @@
             <!-- post -->
             @foreach ($items->skip(1) as $item)
             <div class="post col-xl-6">
-              <div class="post-thumbnail"><a href="post.html"><img src="img/blog-post-1.jpeg" alt="..." class="img-fluid"></a></div>
+              <div class="post-thumbnail"><a href="{{ Route('post', $item->slug) }}"><img src="img/blog-post-1.jpeg" alt="..." class="img-fluid"></a></div>
               <div class="post-details">
                 <div class="post-meta d-flex justify-content-between">
                   <div class="date meta-last">{{ $item->created_at->format('j F | Y') }}</div>

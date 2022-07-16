@@ -12,6 +12,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $guarded = ['id'];
+    protected $with = ['user', 'category'];
 
     public function scopeFilter($query, array $filters)
     {
