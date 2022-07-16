@@ -27,10 +27,10 @@ style="background-color: #1c2331"
 <a href="" class="text-white me-4">
 <i class="bi bi-instagram"></i>
 </a>
-<a href="" class="text-white me-4">
+<a href="https://api.whatsapp.com/send?phone=089658142086" target="_blank" class="text-white me-4">
 <i class="bi bi-whatsapp"></i>
 </a>
-<a href="" class="text-white me-4">
+<a href="https://github.com/ivan-adi-saputra/" target="_blank" class="text-white me-4">
 <i class="bi bi-github"></i>
 </a>
 </div>
@@ -127,7 +127,7 @@ style="background-color: #1c2331"
 
 <!-- Copyright -->
 <div
-class="text-center p-3"
+class="text-center p-3 fixed-bottom bg-dark"
 style="background-color: rgba(0, 0, 0, 0.2)"
 >
 © 2020 Copyright: By

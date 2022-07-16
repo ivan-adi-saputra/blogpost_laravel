@@ -30,14 +30,14 @@
               <div class="text-inner d-flex align-items-center">
                   <div class="content">
                       <header class="post-header">
-                        <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.html">
-                          <h2 class="h4">Alberto Savoia Can Teach You About Interior</h2></a>
+                        <div class="category"><a href="#">{{ $item[0]->category->name }}</a></div><a href="post.html">
+                          <h2 class="h4">{{ $item[0]->title }}</h2></a>
                       </header>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrude consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                      <p>{!! $item[0]->excerpt !!}</p>
                       <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                           <div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid"></div>
-                          <div class="title"><span>John Doe</span></div></a>
-                        <div class="date"><i class="icon-clock"></i> 2 months ago</div>
+                          <div class="title"><span>{{ $item[0]->user->name }}</span></div></a>
+                        <div class="date"><i class="icon-clock"></i>{{ $item[0]->created_at->diffForHumans() }}</div>
                       </footer>
                     </div>
                   </div>
@@ -56,14 +56,14 @@
               <div class="text-inner d-flex align-items-center">
                   <div class="content">
                       <header class="post-header">
-                          <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.html">
-                            <h2 class="h4">Alberto Savoia Can Teach You About Interior</h2></a>
+                          <div class="category"><a href="#">{{ $item[1]->category->name }}</a></div><a href="post.html">
+                            <h2 class="h4">{{ $item[1]->title }}</h2></a>
                         </header>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrude consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                        <p>{!! $item[1]->excerpt !!}</p>
                         <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                             <div class="avatar"><img src="img/avatar-2.jpg" alt="..." class="img-fluid"></div>
-                            <div class="title"><span>John Doe</span></div></a>
-                          <div class="date"><i class="icon-clock"></i> 2 months ago</div>
+                            <div class="title"><span>{{ $item[1]->user->name }}</span></div></a>
+                          <div class="date"><i class="icon-clock"></i>{{ $item[1]->created_at->diffForHumans() }}</div>
                         </footer>
                     </div>
                   </div>
@@ -77,14 +77,14 @@
               <div class="text-inner d-flex align-items-center">
                   <div class="content">
                       <header class="post-header">
-                          <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.html">
-                            <h2 class="h4">Alberto Savoia Can Teach You About Interior</h2></a>
+                          <div class="category"><a href="#">{{ $item[2]->category->name }}</a></div><a href="post.html">
+                            <h2 class="h4">{{ $item[2]->title }}</h2></a>
                         </header>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrude consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                        <p>{!! $item[2]->excerpt !!}</p>
                         <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                           <div class="avatar"><img src="img/avatar-3.jpg" alt="..." class="img-fluid"></div>
-                          <div class="title"><span>John Doe</span></div></a>
-                        <div class="date"><i class="icon-clock"></i> 2 months ago</div>
+                          <div class="title"><span>{{ $item[2]->user->name }}</span></div></a>
+                        <div class="date"><i class="icon-clock"></i>{{ $item[2]->created_at->diffForHumans() }}</div>
                       </footer>
                     </div>
                   </div>
@@ -108,33 +108,33 @@
               <div class="post-thumbnail"><a href="post.html"><img src="img/blog-1.jpg" alt="..." class="img-fluid"></a></div>
               <div class="post-details">
                 <div class="post-meta d-flex justify-content-between">
-                  <div class="date">20 May | 2016</div>
-                  <div class="category"><a href="#">Business</a></div>
+                  <div class="date">{{ $item[0]->created_at->format('j F | Y') }}</div>
+                  <div class="category"><a href="#">{{ $item[0]->category->name }}</a></div>
                 </div><a href="post.html">
-                  <h3 class="h4">Ways to remember your important ideas</h3></a>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                  <h3 class="h4">{{ $item[0]->title }}</h3></a>
+                <p class="text-muted">{!! $item[0]->excerpt !!}</p>
               </div>
             </div>
             <div class="post col-md-4">
               <div class="post-thumbnail"><a href="post.html"><img src="img/blog-2.jpg" alt="..." class="img-fluid"></a></div>
               <div class="post-details">
                 <div class="post-meta d-flex justify-content-between">
-                  <div class="date">20 May | 2016</div>
-                  <div class="category"><a href="#">Technology</a></div>
+                  <div class="date">{{ $item[1]->created_at->format('j F | Y') }}</div>
+                  <div class="category"><a href="#">{{ $item[1]->category->name }}</a></div>
                 </div><a href="post.html">
-                  <h3 class="h4">Diversity in Engineering: Effect on Questions</h3></a>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                  <h3 class="h4">{{ $item[1]->title }}</h3></a>
+                <p class="text-muted">{!! $item[1]->excerpt !!}</p>
               </div>
             </div>
             <div class="post col-md-4">
               <div class="post-thumbnail"><a href="post.html"><img src="img/blog-3.jpg" alt="..." class="img-fluid"></a></div>
               <div class="post-details">
                 <div class="post-meta d-flex justify-content-between">
-                  <div class="date">20 May | 2016</div>
-                  <div class="category"><a href="#">Financial</a></div>
+                  <div class="date">{{ $item[2]->created_at->format('j F | Y') }}</div>
+                  <div class="category"><a href="#">{{ $item[2]->category->name }}</a></div>
                 </div><a href="post.html">
-                  <h3 class="h4">Alberto Savoia Can Teach You About Interior</h3></a>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                  <h3 class="h4">{{ $item[2]->title }}</h3></a>
+                <p class="text-muted">{!! $item[2]->excerpt !!}</p>
               </div>
             </div>
           </div>
