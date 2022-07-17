@@ -4,6 +4,9 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use Illuminate\Auth\Events\Login;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +31,10 @@ Route::get('profile', function () {
 Route::get('contact', function () {
     return view('pages.contact');
 });
+
+Route::get('login', [LoginController::class, 'index'])->middleware('guest')->name('login');
+Route::post('login', [LoginController::class, 'authenticate']);
+Route::post('logout', [LoginController::class, 'logout']);
+
+Route::get('register', [RegisterController::class, 'index']);
+Route::post('register', [RegisterController::class, 'register']);

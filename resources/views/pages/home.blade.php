@@ -6,7 +6,12 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-7">
-              <h1>Wellcome To My Blog Posts</h1><a href="{{ route('posts') }}" class="hero-link">Read More</a>
+              @if ( auth()->guest() )
+                <h1>Wellcome to my blog post</h1>
+              @else
+                <h1>Wellcome {{ auth()->user()->name }}</h1>
+              @endif
+              <a href="{{ route('posts') }}" class="hero-link">Read More</a>
             </div>
           </div>
         </div>
