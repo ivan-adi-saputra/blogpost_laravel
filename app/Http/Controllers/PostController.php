@@ -21,7 +21,7 @@ class PostController extends Controller
             $item = User::firstWhere('username', request('user'));
             $title = ' Author By ' . $item->name;
         }
-        $item = Post::latest()->filter(request(['search', 'category', 'user']))->paginate(5)->withQueryString();
+        $item = Post::with(['user', 'category'])->latest()->filter(request(['search', 'category', 'user']))->paginate(5)->withQueryString();
         return view('pages.posts', [
             'title' => $title ? $title : 'All Post',
             'items' => $item,
