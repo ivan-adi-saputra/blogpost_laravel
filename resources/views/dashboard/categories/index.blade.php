@@ -5,7 +5,7 @@
         <h1 class="h2">Post Categories</h1>
     </div>
     <div class="table-responsive col-lg-6">
-        <a href="" class="btn btn-primary mb-3">Create new category</a>
+        <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">Create new category</a>
         <table class="table table-striped table-sm">
           <thead>
             <tr>
@@ -20,8 +20,8 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $category->name }}</td>
                     <td>
-                        <a href="/dashboard/categories/{{ $category->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
-                        <form action="/dashboard/categories/{{ $category->id }}" method="post" class="d-inline">
+                        <a href="{{ route('categories.edit', $category->id) }}" class="badge bg-warning"><span data-feather="edit"></span></a>
+                        <form action="{{ route('categories.destroy', $category->id) }}" method="post" class="d-inline">
                           @method('delete')
                           @csrf 
                           <button class="badge bg-danger border-0" onclick="return confirm('Are You Sure?')"><span data-feather="x-circle"></button>

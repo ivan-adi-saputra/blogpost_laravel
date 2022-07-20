@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AdminCategoryController extends Controller
 {
@@ -26,7 +27,7 @@ class AdminCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.categories.create');
     }
 
     /**
@@ -37,7 +38,14 @@ class AdminCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255'
+        ]);
+        $validatedData['slug'] = Str::slug($validatedData['name']);
+
+        Category::create($validatedData);
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -59,7 +67,10 @@ class AdminCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('dashboard.categories.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -71,7 +82,14 @@ class AdminCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData  = $request->validate([
+            'name' => 'required|max:255'
+        ]);
+        $validatedData['slug'] = Str::slug($validatedData['name']);
+
+        Category::where('id', $id)->update($validatedData);
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -82,6 +100,9 @@ class AdminCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Category::findOrFail($id);
+        $item->delete();
+
+        return redirect()->route('categories.index');
     }
 }
