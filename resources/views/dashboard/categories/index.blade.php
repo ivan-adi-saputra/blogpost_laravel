@@ -4,17 +4,8 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Post Categories</h1>
     </div>
-    @if(session()->has('success'))
-      <div class="alert alert-success col-lg-6" role="alert"> 
-        {{ session('success') }}
-      </div>
-      @elseif(session()->has('delete'))
-        <div class="alert alert-danger col-lg-6" role="alert"> 
-          {{ session('delete') }}
-        </div>
-    @endif
     <div class="table-responsive col-lg-6">
-        <a href="/dashboard/categories/create" class="btn btn-primary mb-3">Create new category</a>
+        <a href="" class="btn btn-primary mb-3">Create new category</a>
         <table class="table table-striped table-sm">
           <thead>
             <tr>

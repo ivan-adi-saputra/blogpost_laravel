@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardPostController;
 use App\Models\Post;
@@ -44,3 +45,5 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 Route::resource('dashboard/posts', DashboardPostController::class)->middleware('auth');
+
+Route::resource('dashboard/categories', AdminCategoryController::class)->middleware('admin');
